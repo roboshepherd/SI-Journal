@@ -1,0 +1,15 @@
+template.tex
+usrguid3.pdf
+*.clo
+*.bak
+*.aux
+*.dvi
+*.log
+*.toc
+*.bbl
+*.blg
+*.dia~
+*.ps
+*.png
+readme.txt
+history.txt
