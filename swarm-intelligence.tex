@@ -67,10 +67,11 @@ This article presents our works on the validation of the effectiveness of AFM in
 
 Rest of this article is organized as follows. Section~\ref{sec:afm} presents the interpretation of AFM for multi-robot systems.  Section~\ref{sec:rw} discusses related work and the correspondence of AFM with biological self-organization. Our centralized communication scheme is presented in Section~\ref{sec:comm}. Section~\ref{sec:expt} presents the design of our experiments including specific parameters and observables. Section~\ref{sec:res} discusses our experimental results from 8 and 16 robot experiemnts and section~\ref{sec:conc} draws conclusions..
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{The Attractive Field Model}
+\section{Robotic interpretation of the Attractive Field Model}
 \label{sec:afm}
 The AFM has been developed through a collaborative between the partners on the 'Defying the Rules: How Self-Regulated Social; Systems Work' project.  Experiments on ants colonies {\em Temnothorax albipennis} studied the collective performance of ants during brood-sorting and nest construction after emigration to a new site.  The model is also inspired by observational data from the self-organized development of the infrastructure of an {\em eco-village} by an open community of volunteers.  These studies helped us to formalize the a set of necessary and sufficient requirements for self-organisation in a social systems as discussed before. Below we discuss the generic framework of self-regulated division of labour under AFM and our interpretation of this framework for multi-robot systems.
-
+\subsection{The Attractive Field Model}
+\label{afm:framework}
 Building on the requirements for self-organised social systems, AFM formalises these requirements in terms of the relationships between properties of individual agents and of the system as a whole \citep{Arcaute+2008}.  AFM is a bipartite network, i.e. there are two different types of nodes.  One set of nodes describes the sources of the attractive fields, the tasks, and the other set describes the agents.  Edges only exist between different types of nodes and they encode the strength of the attractive field as perceived by the agent.  There are no edges between agent nodes.  All communication is considered part of the attractive fields.  There is also a permanent field representing the {\em no-task} option of not working in any of the available tasks.  This option is modelled as a random walk.  
 %%
 \begin{figure}[htp]
@@ -146,29 +147,13 @@ In order to complete a task, an agent needs to be within a fixed distance of tha
 \label{eqn:k-dec}
 \end{equation}
 
-%\subsection{A Robotic Interpretation of AFM}
-%\label{afm:mrs-interpretation}
+\subsection{A Manufacturing Shop-Floor Interpretation of AFM}
+\label{sec:mrta}
 The interpretation of AFM in a multi-robot system follows the above mentioned generic interpretation.  The robots repeatedly select tasks and if the robot is outside a fixed task boundary, it navigates towards the task.  If the robot is within the task boundary it remains there until the end of the time step when a new (or the same) task is selected. The distance between a task and a robot is simply the physical distance and the sensitivities are recorded as specific values on each robot. The urgency values of the tasks are calculated based on the number of robots attending each task and the updated urgency values are communicated to the robots.
 
 The sensing of the distance between the taks and robots as well as the communication of urgency values are non-trivial in a robotic systen.  Both the sensing and communication can be done either locally by the individual robots or centrally, through an overhead camera and a global communication network.
 This article presents work on exploring the effects of different sensing and communication models on the performance of MRTA systems.
-%%
-\section{Related Work}
-\label{sec:rw}
-%%--------------------------------------------------------------------
-%\subsection{AFM and Biological Self-Organization}
-\label{afm:so}
-
-Fig.  \ref{fig:afm-rules} labels the four distinct perspectives known as so-called ingredients or properties of self-organization:  A) positive feedback, B) negative feedback, C) presence of multiple interactions among individuals and their environment, and D) amplification of fluctuations  e.g., random walks, errors, random task-switching \cite{Camazine+2001}. However, it is not clear how those properties can come into existence. Fig.  \ref{fig:afm-rules} depicts  the four underlying mechanisms (label 1 to 4) that explain how self-organization can be realized in different social systems using our generic framework. These are explained in the following paragraphs.
-
-Firstly, multiple interactions become meaningful when {\em continuous flow of information} occurs  by exchanging signals or cues among agents or their environment  that regulates their behaviours. This, in turn, contribute to the task-allocation  and task-switching in the social level.  In swarm intelligence literature, multiple interactions are often described as an essential ingredient of self-organization. However, interactions without definite purposes may not contribute to the self-organization.
-
-Secondly, in swarm intelligence, positive feedback has been attributed as another mechanism of  self-organization. But it is not easy to understand what creates positive feedback in a social system. Possible answers might be the characteristic of the environment e.g. ants select shorter path since density of pheromones becomes higher and thus more ants becomes attracted in that path, by causing the gradual decrease of response-threshold of individuals. This increases the probability of selecting a task.  To make the answer more specific, we have explicitly attributed {\em sensitisation} or learning as a mechanism of positive feedback. There might exist other mechanisms too. But clearly sensitisation will be one of the reliable mechanisms for achieving positive feedback.
-
-Thirdly, similar to positive feedback, we have proposed {\em forgetting} that contributes to provide negative feedback about a task or decreasing the probability to select it. Other negative feedback mechanisms can be implemented by assigning a saturation level to each task which is also present in our model, for details see \citet{Arcaute+2008}.
-
-Finally, creating  artificial amplification of fluctuations or stochastic events is not a straight-forward issue. It throws  many open questions. Does a system designer intentionally impose irregularity in task-performance of agents?  Is random movement  enough for simulating randomness in a system?
-Since emergencies do not always pop-up on request, we provide the rule of {\em concurrency} that enables agents to  maintain even a small amount of probability of selecting a low-priority, or less sensitized or distant task. This concurrency mechanism provides a high-degree of robustness in the system such that all tasks can be attended even if specialization of agents delays them in switching to some of the tasks.
+%--------------------------------------
 %%
 \begin{figure}[htp]
 \centering
@@ -178,9 +163,7 @@ Since emergencies do not always pop-up on request, we provide the rule of {\em c
 \caption{\small Virtual Shop-floor production and maintenance cycle}
 \label{fig:vsp}  % Give a unique label
 \end{figure}
-%%
-\subsection{A Manufacturing Shop-Floor Interpretation of AFM}
-\label{sec:mrta}
+
 We have designed a set of  manufacturing shop-floor scenario experiments for validating the effectiveness of our AFM in producing self-regulated MRTA. By extending our interpretation of AFM in multi-robot system, we can set-up manufacturing shop-floor  scenario. Here,, each task represents a manufacturing machine. These machines are capable of producing goods from raw materials, but they also require constant maintenance works for stable operations. Let $W_{j}$ be a finite number of material parts that can be loaded into a machine $j$ in the beginning of its production process and in each time-step, $\omega_{j}$ units of material parts can be processed  ($\omega_{j} \ll W_{j} $). So let $\Omega_{j}^{p}$ be the initial production workload of $j$ which is simply: $W_{j} / \omega_{j}$ unit. We assume that all machines are identical. In each time step, each machine always requires a minimum threshold number of robots, called hereafter as {\em minimum robots per machine ($\mu$)}, to meet its constant maintenance work-load, $\Omega_{j}^{m}$ unit. However, if $\mu$ or more robots are present in a machine for production purpose, we assume that, no extra robot is required to do its maintenance work separately. These robots, along with their production jobs, can do necessary maintenance works concurrently. For the sake of simplicity, in this paper we consider $\mu$ = 1.
 Now let us fit the above production and maintenance work-loads and task performance of robots into a unit task-urgency scale. Let us divide our manufacturing operation into two subsequent stages: 1) {\em production and maintenance mode (PMM)}, and 2) {\em maintenance only mode (MOM)}. Initially a machine starts working in PMM and does production and maintenance works concurrently. When there is no production work left, it then enters into MOM. Fig. \ref{fig:vsp} illustrates this for a single machine.
 Under both modes, let $\alpha_{j}$ be the amount of workload occurs in a unit time-step if no robot serves a task and it corresponds to a fixed task-urgency $\Delta \phi_{INC}$. On the other hand, let us assume that in each time-step, a robot, $i$, can decrease a constant workload $\beta_{i}$ by doing some maintenance work along with doing any available production work. This  corresponds to a negative task urgency: $- \Delta \phi_{DEC}$. 
@@ -240,6 +223,20 @@ By considering $\mu = 1$ Eq. \ref{eqn:task-urgency-maint-case} will reduces to E
 \label{eqn:avg-pmw}
 \end{equation}
 \end{multicols}
+%%====================================================
+\section{Related Work}
+\label{sec:rw}
+%%--------------------------------------------------------------------
+Fig.  \ref{fig:afm-rules} labels the four distinct perspectives known as so-called ingredients or properties of self-organization:  A) positive feedback, B) negative feedback, C) presence of multiple interactions among individuals and their environment, and D) amplification of fluctuations  e.g., random walks, errors, random task-switching \cite{Camazine+2001}. However, it is not clear how those properties can come into existence. Fig.  \ref{fig:afm-rules} depicts  the four underlying mechanisms (label 1 to 4) that explain how self-organization can be realized in different social systems using our generic framework. These are explained in the following paragraphs.
+
+Firstly, multiple interactions become meaningful when {\em continuous flow of information} occurs  by exchanging signals or cues among agents or their environment  that regulates their behaviours. This, in turn, contribute to the task-allocation  and task-switching in the social level.  In swarm intelligence literature, multiple interactions are often described as an essential ingredient of self-organization. However, interactions without definite purposes may not contribute to the self-organization.
+
+Secondly, in swarm intelligence, positive feedback has been attributed as another mechanism of  self-organization. But it is not easy to understand what creates positive feedback in a social system. Possible answers might be the characteristic of the environment e.g. ants select shorter path since density of pheromones becomes higher and thus more ants becomes attracted in that path, by causing the gradual decrease of response-threshold of individuals. This increases the probability of selecting a task.  To make the answer more specific, we have explicitly attributed {\em sensitisation} or learning as a mechanism of positive feedback. There might exist other mechanisms too. But clearly sensitisation will be one of the reliable mechanisms for achieving positive feedback.
+
+Thirdly, similar to positive feedback, we have proposed {\em forgetting} that contributes to provide negative feedback about a task or decreasing the probability to select it. Other negative feedback mechanisms can be implemented by assigning a saturation level to each task which is also present in our model, for details see \citet{Arcaute+2008}.
+
+Finally, creating  artificial amplification of fluctuations or stochastic events is not a straight-forward issue. It throws  many open questions. Does a system designer intentionally impose irregularity in task-performance of agents?  Is random movement  enough for simulating randomness in a system?
+Since emergencies do not always pop-up on request, we provide the rule of {\em concurrency} that enables agents to  maintain even a small amount of probability of selecting a low-priority, or less sensitized or distant task. This concurrency mechanism provides a high-degree of robustness in the system such that all tasks can be attended even if specialization of agents delays them in switching to some of the tasks.
 %%=========================================================
 \section{Centralized Communication Scheme}
 \label{sec:comm}
@@ -340,14 +337,14 @@ Eq. \ref{eqn:sensitization} suggests that the learning will happen much faster t
 We have developed a system a multi-robot tracking system can track at least 40 E-puck robots \footnote{www.e-puck.org} and these robots can operate together according to the generic rules of the AFM.
 As shown in Fig. \ref{fig:setup}, our software system consists of a multi-robot tracking system, a centralized task server and robot controller clients. Here at first we have presented the design of our communication system. Then we have discussed about our specific implementation. 
 %%%
-\subsection{Design of our communication system}
+%\subsection{Design of our communication system}
 In order to establish a system-wide continuous flow of information, we need to implement a suitable communication system for our robots. Here we have presented a centralized communication system for our manufacturing shop-floor scenario.
 %% 
 As shown in Fig. \ref{fig:ccm}, in this model there exists a centralized \textit{
 TaskServer} that is responsible for disseminating task information to robots. The contents of task information can be physical locations of tasks, their urgencies and so on. TaskServer delivers this information by emitting \textit{TaskInfo} signals periodically. The method of signal emission depends on a particular communication technology. For example, in a wireless network it can be a message broadcast.
 Task-Server has another interface for catching feedback signals from robots. The \textit{RobotStatus} signal can be used to inform TaskServer about a robot's current task id, its device status and so on. TaskServer uses this information to update relevant part of task information such as, task-urgency. This up-to-date information is sent in next TaskInfo signal.\\
 In Fig. \ref{fig:ccm} an initial configuration of this model has been presented. Upon receiving an initial TaskInfo signal robot $R_1$ has shown strong attraction towards $Task1$ and robot $R_3$ has shown strong attraction toward $Task2$. This can be inferred from Eq. \ref{eqn1} that says if the initial task urgencies and sensitizations for all tasks are same, a robot will strongly be attracted towards a task that is relatively closer to it.
-\subsection{Our current implementation}
+%\subsection{Our current implementation}
 The major components of our implementation are a multi-robot tracking system, robot controller clients and a centralized task-server. In order to track all robots real-time we have used SwisTrack \citep{Lochmatter+2008}, a state of the art open-source, multi-agent tracking system, with a16-megapixel overhead GigE camera. This set-up gives us the position, heading and id of each of the robots at a frequency of 1. The interaction of the hardware and software of our system is illustrated in Fig. \ref{fig:setup}. \\
 For inter-process communication (IPC), we have used D-Bus technology \footnote{http://dbus.freedesktop.org/doc/dbus-specification.html}. We have developed an IPC component for SwisTrack (hereafter called as \textit{SwisTrack D-Bus Server}) that can broadcast id and pose of all robots in real-time over our server's D-Bus interface.\\
 Apart from SwisTrack, we have implemented two major software modules: {\em TaskServer} and {\em Robot Controller Client (RCC)}. They are developed in Python with its state of the art \textit{Multiprocessing} \footnote{http://docs.python.org/library/multiprocessing.html} module. This python module simplifies our need to manage data sharing and synchronization among different sub-processes. As shown in Fig. \ref{fig:setup}, RCC consists of four sub-processes. {\em SignalListener} and {\em SignalEmitter}, interface with SwisTrack D-Bus Server and TaskServer respectively. {\em TaskSelector} implements AFM guidelines for task selection . {\em DeviceController} moves a robot to a target task. Bluetooth radio link is used as a communication medium between a RCC and a corresponding E-puck robot. 
