@@ -325,7 +325,7 @@ For inter-process communication among all the above software components, we have
 In this section we have presented our experimental results followed by some discussions on them. We ran those experiments for about 40 minutes and averaged them over five iterations for both Series A and B.
 %%-------------------------------------------------
 \subsection{Results}
-\subsection*{Shop-floor work-load history}
+\subsubsection{Shop-floor work-load history}
 In our experiments we have defined shop-floor work-load in terms of task urgencies. For example, Eq. \ref{eqn:task-urgency-prod-init} shows how we have calculated initial production work-load of our manufacturing shop-floor scenario. Fig. \ref{fig:raw-urgencies-SA} and Fig. \ref{fig:raw-urgencies-SB}  show the dynamic changes in task-urgencies for the single iteration of Series A and Series B experiments respectively. The fluctuations in these plots are resulted from the different levels of task-performance of our robots.
 \begin{figure}
 %\begin{minipage}[t]{0.48\linewidth}
@@ -370,7 +370,7 @@ From Fig. \ref{fig:urgency-stat-SA} and Fig. \ref{fig:urgency-stat-SB} show the 
 \end{figure}
 %%
 %%----------------------------------------------------------------
-\subsection*{Ratio of active workers}
+\subsubsection{Ratio of active workers}
 %%
 \begin{figure}
 %\begin{minipage}[t]{0.48\linewidth}
@@ -393,7 +393,7 @@ From Fig. \ref{fig:urgency-stat-SA} and Fig. \ref{fig:urgency-stat-SB} show the 
 %%
 From both Fig. \ref{fig:worker-stat-SA} and Fig. \ref{fig:worker-stat-SB}, we can  see that in production stage, when work-load is high, many robots are active in tasks. Here active workers ratio is the ratio of those robots that work on tasks to the total number of robots $N$ of a particular experiment.   Here we can see that this ratio varies according to the shop-floor work-load changes.
 %%-------------------------------------------------------------
-\subsection*{Shop-task performance}
+\subsubsection{Shop-task performance}
 %\begin{figure}
 %%\begin{minipage}[t]{0.48\linewidth}
 %\centering
@@ -417,7 +417,7 @@ In our manufacturing shop-floor scenario, we have calculated the APCD and APMW f
 %%
 For APMW, Series A experiments give us an average time length of 369 time-steps (1845s).  In this period we calculated APMW and it is 1 time-step with SD = 1 time-step (5s) and $\Delta \Phi_{INC}$ = 0.005 per task per time-step. This shows a very low APMW ($\chi$ = 0.000235) and a very high robustness of the system. For Series B experiments, from the average 315 time-steps (1575s) maintenance activity of our robots per experiment run, we have got APMW, $\chi$ = 0.012756 which corresponds to the pending work of 3 time-steps (15s) where SD = 13 time-steps (65s). This tells us the robust task performance of our robots which can return to an abandoned task within a minute or so.
 %%-------------------------------------------------
-\subsection*{Task specializations}
+\subsubsection{Task specializations}
 We have measured the task-specialization of the robots based-on their peak value of sensitization. This maximum value represents how long a robot has repeatedly been selecting a particular task. Since tasks are homogeneous we have considered the maximum sensitization value of a robot among all tasks during an experiment run. This value is then averaged for all robots using the following  equation. 
 %%
 \begin{equation}
@@ -512,7 +512,7 @@ $ values: 0.40 (SD=0.08)  and 0.30 (SD=0.03), and their respective time-step $Q^
 %%
 Fig. \ref{fig:k-single-task-SB} shows us the task specialization of five robots on Task3 in a particular run of Series B experiment. This shows us how some of the robots can specialize (learn) and de-specialize (forget) tasks over time.
 %%-------------------------------------------------
-\subsection*{Robot motions}
+\subsubsection{Robot motions}
 We have aggregated the changes in translation motion of all robots over time. Let $u_{i,q}$ and $u_{i,q+1}$ be the translations of a robot $i$ in two consecutive steps. If the difference between these two translations be $\delta u_{i}$, we can find the sum of changes of translations of all robots in $(q+1)^{th}$ step using the following equation.
 \begin{equation}
 \Delta U_{q+1} = \sum_{i=1}^{N} \delta u_{i, q+1} 
@@ -537,7 +537,7 @@ We have aggregated the changes in translation motion of all robots over time. Le
 %%
 The results from Series A and Series B experiments are plotted in Fig. \ref{fig:translation-stat-SA} and Fig. \ref{fig:translation-stat-SB}. In this plot we can see that robot translations also vary over varying task requirements of tasks.
 %%%-------------------------------------------------
-\subsection*{Communication load}
+\subsubsection{Communication load}
 %%% Communication load %%%
 \begin{figure}
 %\begin{minipage}[t]{0.5\linewidth}
@@ -565,15 +565,20 @@ Fig. \ref{fig:signal-frequency-stat-SA}  and Fig. \ref{fig:signal-frequency-stat
 \label{afm:discuss}
 %%-------------------------------------------------
 Below we discusses our the major findings from the two types of MRTA experiments.
-\textbf{Self-regulated MRTA}. From our experimental results, we have noted several aspects of self-regulated MRTA that exposes the power of AFM. As we have pointed out that this self-regulated MRTA, as observed in biological and human social systems, needs to satisfy several important characteristics, e.g. plasticity, task-specialization. In addition to satisfying those basic qualities, AFM has demonstrated many other aspects. Our self-regulated robots, driven by AFM algorithms, effectively handle the dynamic work-load in our manufacturing shop-floor. They can dynamically support the need to work on currently demanding tasks, if there any. From the self-organized worker allocations under AFM, it is clear to us that although in larger system (Series B) the degree of variations of active-worker ratio can show us significantly unpredictable patterns, nevertheless the self-regulated rules drive the robots to respond to the dynamic needs of the system. This means that AFM can sufficiently produce the plasticity of MRTA in order to meets the dynamic work-load of the system.
-
-\textbf{Learning and Forgetting}. From the individual and group-level task-specialization, we can see that robots can maintain both task-specialization and flexibility. In a self-organized system, it is very common that only a few individuals specialize on tasks and others generally do not. From two samples data sets, we can see that in particular runs of Series A and Series B experiments, task-sensitization values of  only 2-3 robots reach above the group-level average score. Thus in both types of experiments, robots exhibit similar task-specialization behaviours. From task-sensitization we can also see that a limited number of robots are specialized in tasks. Thus most of the other robots are flexible in selecting any tasks as their task-specializations do not bind them to particular tasks.
-
-\textbf{Concurrency and robustness}. As a consequence of fewer robots specializing in tasks, we can also see that robots can concurrently  consider different tasks without being biased to a particular task all the time. Our experiments also show us the robust MRTA as in case of  both high and low work-loads present in the system. This is evident from the manufacturing shop-floor task performance during production and maintenance cycles. For example,  in case of Series B experiments APMW was 65 seconds which corresponded  to pending work-load of 0.065 unit for a single robot. Thus, on an average, before the work-load exceeded by about 13 percent of initial work-load, robots were able to respond to  a task.
-
-\textbf{Communication load.} In these experiments we used a centralized communication scheme as the source of attractive fields that serves the robot with necessary task-perception information. Although our robot-controllers software RCC was also co-located in the same host-PC, they can be distributed to several PCs or robot's on-board PCs. Our centralized communication system has the advantage of minimising the communication load and the disadvantage of a single point of failure as well as single point of load. 
-
-\textbf{Scaling-up}. We have observed the effect of scaling-up the robot team size. The system size of Series B is double of that of Series A in terms of robots, tasks and experiment arena. Keeping a fixed ratio of robot-to-task and task-to-arena we have intended to see the scaling effects in our experiments. Here we see that both systems can show sufficient self-regulated MRTA, but task-performance of both systems varies significantly. For example, the value of production delay (APCD) in Series B is higher by 1.08. This means that performance  is decreased in Series B experiments despite having the resources in same proportion in both systems. This occurs partly due to the greater stochastic effects found in task-allocation in a larger system, e.g. presence of more tasks produce higher stochastic behaviours in robot's task selection.
+\subsubsection{Self-regulated MRTA}
+From our experimental results, we have noted several aspects of self-regulated MRTA that exposes the power of AFM. As we have pointed out that this self-regulated MRTA, as observed in biological and human social systems, needs to satisfy several important characteristics, e.g. plasticity, task-specialization. In addition to satisfying those basic qualities, AFM has demonstrated many other aspects. Our self-regulated robots, driven by AFM algorithms, effectively handle the dynamic work-load in our manufacturing shop-floor. They can dynamically support the need to work on currently demanding tasks, if there any. From the self-organized worker allocations under AFM, it is clear to us that although in larger system (Series B) the degree of variations of active-worker ratio can show us significantly unpredictable patterns, nevertheless the self-regulated rules drive the robots to respond to the dynamic needs of the system. This means that AFM can sufficiently produce the plasticity of MRTA in order to meets the dynamic work-load of the system.
+%%
+\subsubsection{Learning and Forgetting}
+From the individual and group-level task-specialization, we can see that robots can maintain both task-specialization and flexibility. In a self-organized system, it is very common that only a few individuals specialize on tasks and others generally do not. From two samples data sets, we can see that in particular runs of Series A and Series B experiments, task-sensitization values of  only 2-3 robots reach above the group-level average score. Thus in both types of experiments, robots exhibit similar task-specialization behaviours. From task-sensitization we can also see that a limited number of robots are specialized in tasks. Thus most of the other robots are flexible in selecting any tasks as their task-specializations do not bind them to particular tasks.
+%%
+\subsubsection{Concurrency and robustness}
+As a consequence of fewer robots specializing in tasks, we can also see that robots can concurrently  consider different tasks without being biased to a particular task all the time. Our experiments also show us the robust MRTA as in case of  both high and low work-loads present in the system. This is evident from the manufacturing shop-floor task performance during production and maintenance cycles. For example,  in case of Series B experiments APMW was 65 seconds which corresponded  to pending work-load of 0.065 unit for a single robot. Thus, on an average, before the work-load exceeded by about 13 percent of initial work-load, robots were able to respond to  a task.
+%%
+\subsubsection{Communication load} 
+In these experiments we used a centralized communication scheme as the source of attractive fields that serves the robot with necessary task-perception information. Although our robot-controllers software RCC was also co-located in the same host-PC, they can be distributed to several PCs or robot's on-board PCs. Our centralized communication system has the advantage of minimising the communication load and the disadvantage of a single point of failure as well as single point of load. 
+%%
+\subsubsection{Scaling-up}
+We have observed the effect of scaling-up the robot team size. The system size of Series B is double of that of Series A in terms of robots, tasks and experiment arena. Keeping a fixed ratio of robot-to-task and task-to-arena we have intended to see the scaling effects in our experiments. Here we see that both systems can show sufficient self-regulated MRTA, but task-performance of both systems varies significantly. For example, the value of production delay (APCD) in Series B is higher by 1.08. This means that performance  is decreased in Series B experiments despite having the resources in same proportion in both systems. This occurs partly due to the greater stochastic effects found in task-allocation in a larger system, e.g. presence of more tasks produce higher stochastic behaviours in robot's task selection.
 
 Similarly we can see that in larger system robots have less chances to specialize on tasks, as the Series B experiments show us that the overall average task-specialization of the group $K^G_{avg}$ is lower by 0.10 and it lasts for significantly less time (the difference of $Q^G_{avg}$  of both systems is 20 time-steps). Thus, in a large group, robots are more likely to switch among tasks more frequently and this produces more translation motions which cost more energy (e.g. battery power) in task-performance.
 %%====================================================
@@ -614,7 +619,14 @@ In our work we have considered a manufacturing shop-floor scenario where robots 
 \section{Conclusions and Future works}
 \label{sec:conc}
 In this paper  an inter-disciplinary generic model of self-regulated MRTA has been validated by incorporating it in a multi-robot system consists of 8 and 16 e-puck robots under a manufacturing shop-floor scenario. A centralized communication scheme has been incorporated to realize this model. Our model has been tested against a set of observables which include task-specialization, plasticity, task-performance and gross translations of robots.  Our experimental results suggest that under our centralized  communication scheme, these observables can indicate sufficient multi-robot task-allocation.  Thus AFM is a valid model of  self-regulated division of labour for multi-robot systems.
+
 Our centralized communication scheme broadcasts attractive fields as information to all the robots from a central server. This is advantageous in terms of the ease of implementation and operation. But this has the disadvantage of a single point of load and single point of failure. In the future, we will explore local peer-to-peer communication models to spread attractive fields among a multi-robot team having about 40 E-puck robots.
+
+In this study, we have kept the interaction among robots for task-completion under manufacturing shop-floor scenario as simple as possible. This is done mainly for minimizing the time and complexity of real-robotic implementation. This study can possibly be extended in co-operative task performance where different individuals with variety of task-skills need to interact with each other directly. For example, we can consider complex manufacturing shop-floor scenarios where the assembly operations of a machine parts require coordination among multiple tasks. 
+
+Our validation of AFM has been limited to a group of homogeneous robots that has initially same level of task-sensitization. Moreover no dynamic task has been introduced during the run-time of our experiments. Due to the stochastic task-allocation process, we always were able to see the  variation in task-urgencies. But AFM can be applied to a more challenging environment with suddenly appearing (and disappearing) dynamic tasks that can resemble to the real-world use-cases where any task can be pre-empted by other tasks. Moreover, some more research can be done in order to figure out how to optimize the initial experimental parameters, e.g. robots' task learning and forgetting rate etc. 
+
+Finally, in terms of real-world implementation, we can consider to put AFM for solving many challenging industrial automation tasks. For example, AFM can solve automated material handing tasks in ware-houses and factories, or real manufacturing tasks with suitable hardware module. %In this way, our interdisciplinary model can help to overcome the existing challenges in the industry.
 %%
 %\bigskip
 \subsubsection*{Acknowledgements. } 
