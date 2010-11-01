@@ -30,7 +30,7 @@
 \usepackage{multirow}
 %
 \begin{document}
-\title{Implementing Continuous Flow of Information Using Centralized Communication for a Robotic Validation of the Attractive Field Model}
+\title{Implementing Continuous Flows of Information Using Centralized Communication for a Robotic Validation of the Attractive Field Model}
 \titlerunning{Robotic Validation of the Attractive Field Model}
 \author{Md Omar Faruque Sarker \and
 Torbj{\o}rn S. Dahl %etc.
@@ -38,13 +38,13 @@ Torbj{\o}rn S. Dahl %etc.
 %\authorrunning{Short form of author list} % if too long for running head
 \institute{
 Cognitive Robotics Research Centre, University of Wales, Newport, UK\\
-\email{Torbjorn.Dahl@newport.ac.uk}
+\email{Mdomarfaruque.Sarker@newport.ac.uk}
 }
 %\date{Received: / / Accepted: / / }
 % The correct dates will be entered by the editor
 \maketitle
 \begin{abstract}
-Attractive field model is an interdisciplinary model of self-organization that proposes to solve the issue of division of labour or task allocation using a set of generic rules derived from the observation of ant, human and robotic social systems. These bottom-up rules can be used to model multi-robot task allocation problem in terms of attractive fields between robots and tasks. The concrete form of these rules provides sufficient abstraction to accommodate different sensing and communication models for solving multi-robot task-allocation problem. By avoiding strong dependence on local interactions found in many existing approaches to multi-robot task allocation, attractive field model becomes flexible enough to achieve task allocation among multiple concurrent tasks through the presence of a system-wide continuous flow of information. Unlike traditional swarm task-allocation approach which extensively relies upon local communication for achieving task-allocation, our approach exploits a centralized point-to-point communication scheme to obtain continuous flow of information among variable number of independent task-allocating robots. Our experimental results validate the effectiveness of using attractive filed model with a centralized point-to-point communication scheme as a mechanism for self-organized multi-robot task allocation. Our experiments used 8 and 16 e-puck robots in 2m x 1m and 2m x 2m areas respectively.
+The attractive field model is an interdisciplinary model of self-organization in terms of division of labour or task allocation.  The model is based on a set of generic requirements derived from the observation of ant, human and robot social systems.  These requirements are embedded in the model in terms of attractive fields between robots and tasks.  The formal model provides sufficient abstraction to accommodate different sensing and communication models for solving multi-robot task-allocation problem.  Basing the modelling of self-organisation on system-wide continuous flows of information avoiding, means that the model avoids the strong dependence on local interactions found in many existing approaches to multi-robot task allocation.  Thus, the attractive field model is flexible enough to model a wide range of mechanisms for the allocation of tasks to robots.  Our implementation of attractive fields use a centralized point-to-point communication scheme to obtain continuous flow of information among a variable number of independent task-allocating robots.  Our experimental results demonstrates the feasibility of using the attractive field model implemented through a centralized point-to-point communication scheme as a mechanism for self-organized multi-robot task allocation.  Our experiments used 8 and 16 e-puck robots in a 2m by 1m and a 2m by 2m area respectively.
 \keywords{Multi-robot system \and Division of labour \and Multi-robot task allocation \and Attractive field model \and Centralized communication}
 %% \PACS{PACS code1 \and PACS code2 \and more}
 %% \subclass{MSC code1 \and MSC code2 \and more}
@@ -53,28 +53,28 @@ Attractive field model is an interdisciplinary model of self-organization that p
 \section{Introduction}
 \label{sec:intro}
 %\vspace{2mm}
-Multi-robot task allocation (MRTA) problem focuses on allocating appropriate tasks to appropriate robots dynamically considering the changes in task-requirement, team-performance and environment. This problem is analogous to the division of labour among individuals found in biological and human social systems. MRTA is a challenging research issue since there exist no central planner or coordinator in a distributed multi-robot team and robots have limited capabilities to sense, to communicate and to interact with a limited number of peers at a time. Due to the large communication and computational overhead, traditional explicit task-allocation approaches, such as intentional cooperation \citep{Parker2008} and market-based bidding approach \citep{Dias+2006},  do not scale well to the large number of tasks and robots \citep{Lerman+2006}. On the other hand, existing self-organized approaches, such as emergent cooperation \citep{Kube1997}, use of {\em adaptation rules} \citep{Liu+2007} are limited since they produce specific solutions to certain global tasks alone \citep{Gerkey+2004}.
+The multi-robot task allocation (MRTA) problem is concerned with allocating appropriate tasks to appropriate robots considering differences in task-requirement, team-performance and environment.  This problem is analogous to the division of labour among individuals found in biological and human social systems.  MRTA is a challenging research question as robots have limited capabilities to sense, to communicate and to interact with peers.  Due to large communication and computation overheads, traditional or {\em explicit} task-allocation approaches, such as intentional cooperation \citep{Parker2008} and market-based approaches \citep{Dias+2006}, do not scale well to the large number of tasks and robots \citep{Lerman+2006}.  On the other hand, existing self-organized approaches, such as emergent cooperation \citep{Kube1997} and {\em adaptation rules} \citep{Liu+2007} are limited to producing solutions to specific global tasks \citep{Gerkey+2004}.
 
-As a part of the Engineering and Physical Sciences Research Council (UK) collaborative  research project, `Defying the Rules: How Self-regulatory Systems Work', we have studied the behaviour of ants, humans and robots and formalized a set of four necessary and sufficient requirements for self-organisation in social systems. These four requirements are: \textit{continuous flow of information}, \textit{concurrency}, \textit{learning} and \textit{forgetting} (which will be explained later).  Primarily, these requirements facilitate the derivation of local control rules for regulating an individual's task-allocation behaviour in such a way that can develop self-organized division of labour in the entire group. However  unlike  most of the existing self-organized task-allocation approaches, our approach does not assume the presence of any specific type of interaction or communication pattern in the group. Rather it assumes the presence of a system-wide continuous flow of information that wraps up all kinds of communication and interaction occurred among robots. This flow of information can provide robots with necessary perception about task-requirements as well as the feedback about their collective performance. This flow of information can happen by global broadcast, local peer-to-peer interaction or even through \textit{stigmergy} such as a shared global memory mechanism. Since our model does not assume any fixed form of communication and interaction it can accommodate various forms of communication and interaction among individuals and with their environment and all of these can collectively contribute to generate a continuous flow of information in the system.
+As a part of the collaborative UK Engineering and Physical Sciences Research Council (EPSRC) research project, 'Defying the Rules: How Self-regulatory Systems Work', we have studied the behaviour of ants, humans and robots and produced a set of four necessary and sufficient requirements for self-organisation in social systems.  The four requirements are: \textit{continuous flow of information}, \textit{concurrency}, \textit{learning} and \textit{forgetting}.  These requirements facilitate the derivation of local control rules for regulating an individual's task-selection behaviour in such a way that the global system self-organizes its division of labour.  However, unlike most existing self-organized task-allocation approaches, our approach does not assume the presence of any specific type of interaction or communication pattern in the group.  Instead it assumes the presence of abstract system-wide, continuous flows of information.  The flows can represent different forms of sensing, communication and interaction among the tasks and robots.  They provide robots with the necessary information about the available tasks as well as feedback on collective performance.  The flows can be implemented through global broadcasts, local peer-to-peer interaction or even through \textit{stigmergy}.  Since our model does not assume any fixed form of sensing, communication or interaction, it can accommodate various forms of robot-robot and robot-environment communication and interaction, all of which can collectively contribute to generate a continuous flow of information in the system.
 
-This article presents our work on the validation of the effectiveness of AFM in producing self-organized MRTA using a centralized point-to-point communication scheme. The main contributions of this paper are: interpretation of AFM for a multi-robot system particularly under a manufacturing shop-floor scenario, implementation of the continuous flow of information by a centralized communication scheme and last, but not the least, validation of AFM in achieving self-organized MRTA in a fairly large multi-robot system. Rest of this article is organized as follows. Section~\ref{sec:afm} presents the interpretation of AFM for multi-robot systems.  Our centralized communication scheme is presented in Section~\ref{sec:comm}. Section~\ref{sec:expt} presents the design of our experiments including specific parameters and observables. Section~\ref{sec:res} discusses our experimental results obtained from two sets of experiments involving the 8 and 16 robots. Section~\ref{sec:rw} reviews related work and discusses the correspondence of AFM with biological self-organization. Section~\ref{sec:conc} draws conclusions and discusses about possible further works.
+This article presents our work on the validation of the feasibility of using AFM as a mechanism for self-organized MRTA using a centralized point-to-point communication scheme.  The main contributions of this paper are: first, an interpretation of AFM for multi-robot system task allocation with an further interpretation for a manufacturing shop-floor scenario, second, an implementation of the continuous flow of information by a centralized communication scheme and last, but not least, an experimental validation of AFM as a mechanism for self-organized MRTA in a fairly large multi-robot system.  The rest of this article is organized as follows.  Section~\ref{sec:afm} presents the interpretation of AFM for multi-robot systems.  Our centralized peer-to-peer communication scheme is presented in Section~\ref{sec:comm}. Section~\ref{sec:expt} presents the design of our experiments including specific parameters and observables.  Section~\ref{sec:res} discusses our experimental results obtained from two sets of experiments involving 8 and 16 robots.  Section~\ref{sec:rw} reviews related work and discusses the correspondence of AFM with biological self-organization.  Section~\ref{sec:conc} draws conclusions and discusses possible future work.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Robotic interpretation of the Attractive Field Model}
+\section{A Robotic interpretation of the Attractive Field Model}
 \label{sec:afm}
-The AFM has been developed through the collaborative effort among the partners of our EPSRC project. This effort includes the experiments on {\em Temnothorax albipennis} ant colonies to study the collective performance of ants during brood-sorting and nest construction after emigration to a new site.  The model is also inspired by observational data from the self-organized development of community infrastructure of an {\em eco-village} by an open community of volunteers.  These studies helped us to formalize the a set of necessary and sufficient requirements for self-organisation in a social systems as discussed before. Below we discuss the generic framework of self-organized division of labour under AFM and our interpretation of this framework for multi-robot systems.
+The AFM has been developed through the collaborative effort of the partners of our EPSRC project.  This effort includes experiments on {\em Temnothorax albipennis} ant colonies to study individual and collective performances of ants during brood-sorting and nest construction after emigration to a new nest site.  The model is also inspired by observational data from the self-organized development of community infrastructure in an {\em eco-village} by an open community of volunteers.  These studies helped us to suggest a set of necessary and sufficient requirements for self-organisation in social systems. Here we discuss the generic framework of self-organized division of labour under AFM and our interpretation of this framework for multi-robot systems.
 \subsection{The Attractive Field Model}
 \label{afm:framework}
-AFM has been constructed based on the four generic requirements of self-organization. The first requirement is the \textit{continuous flow of information}. This demands that self-organised social systems must establish a flow of information over the period of time when self-organisation can be defined. The task information provides the basis on which the individuals self-organise by enabling them to perceive tasks and receive feedback on collective team performance.  \textit{Concurrence} or the simultaneous presence of several task-options is the second requirement of  self-organization. This is necessary in order to meaningfully say that the system has organised into a recognisable structure. In task-allocation terms, the minimum requirement is a single task as well as the option of not performing any task. The third requirement of self-organization is the presence of different levels of \textit{sensitization} among individuals towards different tasks. A system, where each robot has different levels of sensitization to the available tasks, can  embody a distinct organisation through differentiation. Finally, the last requirement of self-organization is to implement forgetting of tasks among individuals. In order to avoid saturation, forgetting mechanism reduces the sensitisation levels of individuals towards different tasks. This allows flexibility in the system as the individual preferences towards different tasks always keep changing over time. 
+The AFM has been developed from four requirements for self-organization.  The first requirement is \textit{continuous flow of information}.  This demands that self-organised social systems must establish a flow of information over the period of time during which self-organisation can be defined.  The task information provides the basis on which the individuals self-organise by enabling them to perceive tasks and receive feedback on collective team performance.  \textit{Concurrence} or the simultaneous presence of several task-options is the second requirement of self-organization. Concurrence is necessary in order to meaningfully say that the system has organised into a recognisable structure.  In task-allocation terms, the minimum requirement is a single task as well as the option of not performing any task.  The third requirement for self-organization is the presence of different levels of \textit{sensitization} among individuals towards different tasks.  A system where each robot has different levels of sensitization with respect to the available tasks, can be said to embody a distinct organisation through differentiation.  Finally, the last requirement of self-organization is {\em forgetting} of task information by individual agents. A forgetting mechanism avoids saturation of sensitisation levels by reducing these levels over time. This also allows flexibility in the system as the individual preferences towards different tasks always keep changing over time. 
 
-Considering the above requirements of self-organization AFM has been developed as a formal model of self-organized division of labour in social systems. The issue of division of labour has been chosen since this is a well-understood problem in biological and human social systems domain. Now let us at first see how division of labour in ants, humans and robots can be explained in terms of the above four requirements. In an ant colony, we have assumed that division of labour is not genetically driven. Initially all ants are equal. It is not well-known how ants ``know'' or get information about tasks. But we know that they all interact directly and indirectly and perform tasks. The flow of information can take place in many different ways. Ants can get information through direct peer-to-peer, local or global broadcast and indirect pheromone communications. Thus each task can be treated as an attractive source, stimulating ants to go to it. Here the stimulus primarily depends on the distance. In case of sensitization or learning about new tasks, an ant that has performed a task, it is assumed that it will be more likely that it will be attracted to do it again.  Concurrence of tasks  can  be achieved through spatial dependence of strength of stimulus. Some ants will be favoured to get information from multiple sources than others. When an ant does not do a task for relatively long time it is less probable that it will do that task again. This will lead to forgetting of their tasks gradually.  
+Embodying these requirements, AFM has been developed as a formal model of self-organized social systems in terms of division of labour.  The issue of division of labour has been chosen because it is a well-studied problem in biological and human social societies.  Division of labour in ants, humans and robots can all be explained in terms of the four requirements above.  In an ant colony, we have assumed that division of labour is not genetically driven, i.e., all ants are initially equal.  It is not well-known how ants receive information about tasks, but we know that they interact both directly and indirectly to perform tasks.  The flow of information involved can take place in many different ways.  Ants can get information through direct peer-to-peer interaction, local or global broadcasts and indirect pheromone-based communication. Thus, each task can be treated as the centre of an attractive field, stimulating ants to select it.  Here the stimulus primarily depends on geographical distance.  In the case of sensitization or learning about new tasks, an ant that has performed a task, is assumed to be more likely to select that task again. Concurrency of tasks is achieved by the fact that ants commonly stand still or random walk, not contributing directly to any specific task.  Some ants will be in a favoured position where they receive information from multiple tasks.  When an ant does not select a task for a relatively long time it is less probable that it will do that task again.  This has the effect of the ants gradually forgetting about these tasks.
 
-Similarly, we can see that in human society people can get information about certain tasks or resources from various sources. Those who are located near the source of information are more likely to attend it. For example, through the access to Internet, some people can get information quicker than others.  The background training, education or skill profile can be used to estimate the sensitization to do a task or use a particular resource. 
+Similarly to ants, we can see that in human society people receive information about tasks from various sources.  Those who are receive information about tasks the quickest are said to be closer the source of the information are more likely to attend to the related task.  For example, through access to the Internet, some people can get task information quicker than others and thus are said to be closer to those tasks.  Factors such as the level of training, education, skill profile an motivation are represented as an individual's sensitization to a task.
 
-AFM formalises the requirements of self-organization in terms of the relationships between properties of individual agents and of the system as a whole \citep{Arcaute+2008}.  AFM is a bipartite network, i.e. there are two different types of nodes.  One set of nodes describes the sources of the attractive fields, the tasks, and the other set describes the agents.  Edges only exist between different types of nodes and they encode the strength of the attractive field as perceived by the agent.  There are no edges between agent nodes.  All communication is considered part of the attractive fields.  There is also a permanent field representing the {\em no-task} option of not working in any of the available tasks.  This option is modelled as a random walk.  
+AFM formalises the requirements for self-organization in terms of the relationships between properties of individual agents and of the system as a whole \citep{Arcaute+2008}.  An AFM is a bipartite network, i.e. a network with two different types of nodes.  One set of nodes describes the tasks of the available tasks.  The other set of nodes describes the agents.  Edges only exist between nodes of different types and encode the strength of the attractive field of one task as perceived by one agent.  There are no edges between agent nodes or between task nodes.  All communication taking place in a system is considered part of the attractive fields.  There is also a permanent field representing the {\em no-task} option of not working on any of the available tasks.  This option is modelled as a random walk.  
 %%
 \begin{figure}[htp]
 \centering
-\includegraphics[height=0.5\textwidth, angle=0]{./images/AFM-Diag3.eps}
+\includegraphics[height=0.5\textwidth, angle=0]{./AFM-Diag3.eps}
 %figure caption is below the figur
 \caption{\small Attractive Filed Model (AFM)}
 \label{fig:afm} 
@@ -143,13 +143,13 @@ The interpretation of AFM in a multi-robot system follows the above mentioned ge
 The sensing of the distance between the tasks and robots as well as the communication of urgency values are non-trivial in a robotic system.  Both the sensing and communication can be done either locally by the individual robots or centrally, through an overhead camera and a global communication network.
 This article focuses on investigating the role of latter strategy on the performance of self-organized MRTA.
 %--------------------------------------
-\subsection{Task-allocation in a Manufacturing Shop-Floor}
+\subsection{Task-Allocation in a Manufacturing Shop-Floor Scenario}
 \label{sec:mrta}
 %%
 \begin{figure}[htp]
 \centering
 \includegraphics[width=0.8\textwidth, angle=0]
-{./images/VSP.eps}
+{./VSP.eps}
 %figure caption is below the figure
 \caption{\small Virtual Shop-floor production and maintenance cycle}
 \label{fig:vsp}  % Give a unique label
@@ -157,9 +157,9 @@ This article focuses on investigating the role of latter strategy on the perform
 %%
 One of the major issues that need to be addressed before applying AFM in real-world problem is how to map various properties of AFM to that of the given problem. Here we have designed a manufacturing shop-floor scenario that demonstrates this. By extending our interpretation of AFM in multi-robot system, in our  manufacturing shop-floor  scenario we translate the task-requirements and robot capabilities into task-urgency values. In this scenario, each task represents a manufacturing machine. These machines are capable of producing goods from raw materials, but they also require constant maintenance works for stable operations. Let $W_{j}$ be a finite number of material parts that can be loaded into a machine $j$ in the beginning of its production process and in each time-step, $\omega_{j}$ units of material parts can be processed  ($\omega_{j} \ll W_{j} $). So let $\Omega_{j}^{p}$ be the initial production workload of $j$ which is simply: $W_{j} / \omega_{j}$ unit. We assume that all machines are identical. In each time step, each machine always requires a minimum threshold number of robots, called hereafter as {\em minimum robots per machine ($\mu$)}, to meet its constant maintenance work-load, $\Omega_{j}^{m}$ unit. However, if $\mu$ or more robots are present in a machine for production purpose, we assume that, no extra robot is required to do its maintenance work separately. These robots, along with their production jobs, can do necessary maintenance works concurrently. For the sake of simplicity, in this paper we consider $\mu$ = 1.
 
-Now let us fit the above production and maintenance work-loads and task performance of robots into a unit task-urgency scale. Let us divide our manufacturing operation into two subsequent stages: i) {\em production and maintenance mode (PMM)} or simply called {\em production cycle}, and ii) {\em maintenance only mode (MOM)} or simply called {\em maintenance cycle}. Initially a machine starts working in production cycle and does production and maintenance works concurrently. When there is no production work left, it then enters into maintenance cycle. Fig. \ref{fig:vsp} illustrates this for a single machine.
+The above production and maintenance work-loads and task performance of robots are represented on a task-urgency unit scale.  The manufacturing operation is divided into two subsequent stages: i) {\em production and maintenance mode (PMM)} or simply called {\em production cycle}, and ii) {\em maintenance only mode (MOM)} or simply called {\em maintenance cycle}. Initially a machine starts working in production cycle and does production and maintenance works concurrently. When there is no production work left, it then enters into maintenance cycle. Fig. \ref{fig:vsp} illustrates this for a single machine.
 
-Under both modes, let $\alpha_{j}$ be the amount of workload occurs in a unit time-step if no robot serves a task and it corresponds to a fixed task-urgency $\Delta \phi_{INC}$. On the other hand, let us assume that in each time-step, a robot, $i$, can decrease a constant workload $\beta_{i}$ by doing some maintenance work along with doing any available production work. This  corresponds to a negative task urgency: $- \Delta \phi_{DEC}$. 
+Under both modes, $\alpha_{j}$ is the amount of workload occurs in a unit time-step if no robot serves a task and it corresponds to a fixed task-urgency $\Delta \phi_{INC}$.  Simultaneously, for each time-step, a robot, $i$, can decrease the constant workload $\beta_{i}$ by doing some maintenance work along with doing any available production work.  This corresponds to a negative task urgency: $- \Delta \phi_{DEC}$. 
 So, at the beginning of production process, task-urgency, occurred in a machine due to its production work-loads, can be encoded by Eq. \ref{eqn:task-urgency-prod-init}.
 \begin{equation}
 %\small
@@ -177,7 +177,7 @@ However, if a robot attends to a machine and does some production works from it,
 \Phi_{j, k+1}^{PMM} = \Phi_{j, k}^{PMM} - \nu_{k} \times \Delta \phi_{DEC}
 \label{eqn:task-urgency-prod-case2}
 \end{equation}
-At a particular machine $j$, once $\Phi_{j, k}^{PMM}$ reaches to zero, we can say that there is no more production work left and this time-step $k$ can give us the {\em production completion time} of $j$, $T_{j}^{PMM}$. Average production time-steps of a shop-floor with M machines can be calculated by the following simple equation.
+At a particular machine $j$, once $\Phi_{j, k}^{PMM}$ reaches to zero, we can say that there is no more production work left and this time-step $k$ can give us the {\em production comparison time} of $j$, $T_{j}^{PMM}$. Average production time-steps of a shop-floor with M machines can be calculated by the following simple equation.
 \begin{equation}
 T_{avg}^{PMM} = \frac{1}{M} \sum_{j=0}^{M} T_{j}^{PMM} 
 \label{eqn:avg-pmm}
@@ -221,7 +221,7 @@ By considering $\mu = 1$, Eq. \ref{eqn:task-urgency-maint-case} will reduces to 
 \label{sec:comm}
 \begin{figure}
 \centering
-\includegraphics[height=0.5\textwidth, angle=0]{./images/CentralizedComm.eps}
+\includegraphics[height=0.5\textwidth, angle=0]{./CentralizedComm.eps}
 \caption{\small A centralized communication scheme} % for implementing AFM}
 \label{fig:ccm} % Give a unique label
 \end{figure}
@@ -241,9 +241,9 @@ Self-organized MRTA is often characterised by the plasticity and task specializa
 
 \textbf{Task-specialization:} Self-organized MRTA is generally accompanied with task specializations of agents. That means that few robots will be more active than others. From the interpretation of AFM, we can see that after doing a task a few times, a robot will soon be sensitized to it. Therefore, from the raw log of task-sensitization of robots, we can be able to find the pattern of task-sensitization of robots per task basis.
 
-\textbf{Quality of task-performance:} The quality of MRTA can be measured from the production delay or APCD value. It first calculates the ideal minimum production time and then finds the delay in production process from the actual production completion data. Thus this will indicate how much more time is  spent in the production process due to the self-regulation of robots in this distributed task-allocation scheme.  In order to calculate APCD, we can find the production completion time for each task from the raw log of task-urgency and make an average from them.
+\textbf{Quality of task-performance:} The quality of MRTA can be measured from the production delay value. It first calculates the ideal minimum production time and then finds the delay in production process from the actual production completion data. Thus this will indicate how much more time is  spent in the production process due to the self-regulation of robots in this distributed task-allocation scheme.  In order to calculate production delay, we can find the production completion time for each task from the raw log of task-urgency and make an average from them.
 
-\textbf{Robustness:} In order to see if our system can respond to the gradually increasing workloads,  we can measure APMW within the context of our manufacturing shop-floor scenario. APMW indicates how much a machine is left unattended by all the robots on an average. This measures the robustness of our system where robots often leave a task in favour of another one. When a task is not being served by any robot for some time we would be able to see that its urgency would rise and robots would respond to this dynamic demand. For measuring APMW we need only the task-urgency data.
+\textbf{Robustness:} In order to see if our system can respond to the gradually increasing workloads,  we can measure pending maintenance workload (i.e. APMW) within the context of our manufacturing shop-floor scenario. This pending maintenance workload indicates how much a machine is left unattended by all the robots on an average. This measures the robustness of our system where robots often leave a task in favour of another one. When a task is not being served by any robot for some time we would be able to see that its urgency would rise and robots would respond to this dynamic demand. For measuring pending maintenance workload we need only the task-urgency data.
 
 \textbf{Flexibility:} From the design of AFM, we know that robots that are not doing a task will be de-sensitized to it or forget that task. So at an overall low work-load (or task urgency), less robots will do the tasks and hence less robots will have the opportunity to learn tasks. From the shop-floor work-load data, we can confirm the presence of flexibility in MRTA.
 
@@ -251,7 +251,7 @@ Self-organized MRTA is often characterised by the plasticity and task specializa
 
 \textbf{Information flow:} Since AFM requires a system-wide continuous flow of information, we can measure the communication load to bench-mark our implementation of communication system. This bench-mark data can be used to compare among various communication strategies. Here we can measure  how much task-related information, i.e. task-urgency, location etc. are sent to the robots at each time step. This  amount of information or communication load can be constant or variable depending on the design of the communication system.
 
-\textbf{Scalability:} In order to see the effects of scaling on MRTA, we have designed two group of experiments. Series A corresponds to a small group where we have used 8 robots, 2 tasks under an arena of 2m x 1m. We have doubled these numbers in Series B (Table \ref{table:params}). This proportional design can give us a valuable insight about the effects of scaling on self-organized MRTA. 
+\textbf{Scalability:} In order to see the effects of scaling on MRTA, we have designed two group of experiments. Series A corresponds to a small group where we have used 8 robots, 2 tasks under an arena of 2m by 1m. We have doubled these numbers in Series B (Table \ref{table:params}). This proportional design can give us a valuable insight about the effects of scaling on self-organized MRTA. 
 
 Thus, in order to observe the above properties of self-organized MRTA, we have designed our experiments to record the following  observables in each time-step.
 \begin{enumerate}
@@ -306,27 +306,27 @@ Eq. \ref{eqn:sensitization} suggests that the learning will happen much faster t
 \begin{figure}
 \centering
 \includegraphics[width=0.9\textwidth, angle=0]
-{./images/RIL-Expt-Setup1.eps}
+{./RIL-Expt-Setup1.eps}
 %figure caption is below the figure
 \caption{\small Hardware and software setup}
 \label{fig:setup} % Give a unique label
 \end{figure}
-As shown in Fig. \ref{fig:setup}, three major software systems have been implemented for validating AFM: i) \textit{TaskPerceptionServer} (TPS), ii) \textit{RobotController Client} (RCC) and iii) SwisTrack multi-robot tracker \citep{Lochmatter+2008}. The centralized TPS is responsible for disseminating task information to RCCs. TPS delivers this information by emitting \textit{TaskInfo} signals periodically. This task-information mainly contains the relevant task information which is used by the our high-level robot-controller RCCs for running their task-allocation algorithm. TPS has another interface for catching feedback signals from RCCs. The \textit{RobotStatus} signal can be used to inform TPS about a robot's current task ID, its device status etc. Upon  receiving this information, TPS updates relevant part of task information such as, task-urgency.  SwisTrack  tracks all e-puck\footnote{www.e-puck.org} robots in real-time using a 16-megapixel overhead Prosilica GigE 4900C\footnote{www.prosilica.com}  camera. This set-up produces the position, orientation and ID of all  robots by processing the image frames at about 1.5 FPS.  
+As shown in Fig. \ref{fig:setup}, three major software systems have been implemented for validating AFM: i) \textit{TaskPerceptionServer} (TPS), ii) \textit{RobotController Client} (RCC) and iii) SwisTrack multi-robot tracker \citep{Lochmatter+2008}. The centralized TPS is responsible for disseminating task information to RCCs. TPS delivers this information by emitting \textit{TaskInfo} signals periodically. This task-information mainly contains the relevant task information which is used by the our high-level robot-controller RCCs for running their task-allocation algorithm. TPS has another interface for catching feedback signals from RCCs. The \textit{RobotStatus} signal can be used to inform TPS of a robot's current task ID, its device status etc. Upon  receiving this information, TPS updates relevant part of task information such as, task-urgency.  SwisTrack  tracks all e-puck\footnote{www.e-puck.org} robots in real-time using a 16-megapixel overhead Prosilica GigE 4900C\footnote{www.prosilica.com}  camera. This set-up produces the position, orientation and ID of all  robots by processing the image frames at 1.5 FPS.  
 
 For inter-process communication among all the above software components, we have used D-Bus technology \citep{Pennington+2010}. An inter-process communication module for SwisTrack has been developed that can broadcast id and pose of all robots in real-time over a common D-Bus interface. RCCs are developed in Python with its state of the art \textit{Multiprocessing}\footnote{http://docs.python.org/library/multiprocessing.html} module. This python module simplifies the need for  sharing data and performing synchronization among different sub-processes. As shown in Fig. \ref{fig:setup}, the software system of a RCC consists of four sub-processes. {\em SignalListener} and {\em SignalEmitter}, interface with SwisTrack's D-Bus communication module and TPS. {\em TaskSelector} implements AFM algorithms for task selection. {\em DeviceController} physically drives a robot towards a target task's boundary. Bluetooth radio link is used as a communication medium between a RCC and a corresponding e-puck robot. The detail design and implementation of our of D-Bus communication scheme can be found in \cite{Sarker2010control}. 
 %================================================================= 
 \section{Results \& Discussions}
 \label{sec:res}
-In this section we have presented our experimental results followed by some discussions on them. We ran those experiments for about 40 minutes and averaged them over five iterations for both Series A and B experiments.
+In this section we present and discuss our experimental results. Each experiment, series A and series B consisted of five separate trials the reported results are the trial averages.  Each trial lasted 40 minutes.
 %%-------------------------------------------------
 \subsection{Results}
 \subsubsection{Shop-floor work-load history}
-In our experiments we have defined shop-floor work-load in terms of task urgencies. For example, Eq. \ref{eqn:task-urgency-prod-init} shows how we have calculated initial production work-load of our manufacturing shop-floor scenario. Fig. \ref{fig:raw-urgencies-SA} and Fig. \ref{fig:raw-urgencies-SB}  show the dynamic changes in task-urgencies for the single iteration of Series A and Series B experiments respectively. The fluctuations in these plots are resulted from the different levels of task-performance of our robots.
+In our experiments we have defined shop-floor work-load in terms of task urgencies. For example, Eq. \ref{eqn:task-urgency-prod-init} shows how we have calculated initial production work-load of our manufacturing shop-floor scenario.  Fig. \ref{fig:raw-urgencies-SA} and Fig. \ref{fig:raw-urgencies-SB}  show the dynamic changes in task-urgencies for the single iteration of Series A and Series B experiments respectively. The fluctuations in these plots are resulted from the different levels of task-performance of our robots.
 \begin{figure}
 %\begin{minipage}[t]{0.48\linewidth}
 \centering
 \includegraphics[width=0.7\textwidth, angle=0]
-{images/global-8robots/PlotUrgencyLog-2010Apr30-095755.eps}
+{./PlotUrgencyLog-2010Apr30-095755.eps}
 %figure caption is below the figure
 \caption{\small Changes in task-urgencies in Series A experiments}
 \label{fig:raw-urgencies-SA} 
@@ -334,7 +334,7 @@ In our experiments we have defined shop-floor work-load in terms of task urgenci
 %\hspace{0.5cm}
 %\begin{minipage}[t]{0.48\linewidth}
 \centering
-\includegraphics[width=0.7\textwidth, angle=0]{images/PlotUrgencyLog-2010May10-115549.eps}
+\includegraphics[width=0.7\textwidth, angle=0]{./PlotUrgencyLog-2010May10-115549.eps}
 \caption{\small Changes in task-urgencies in Series B experiments} 
 \label{fig:raw-urgencies-SB} 
 %\end{minipage}
@@ -350,7 +350,7 @@ From Fig. \ref{fig:urgency-stat-SA} and Fig. \ref{fig:urgency-stat-SB} show the 
 %\begin{minipage}[t]{0.48\linewidth}
 \centering
 \includegraphics[width=0.7\textwidth, angle=0]
-{images/global-8robots/8robots2tasks-TaskUrgencyStat.eps}
+{./8robots2tasks-TaskUrgencyStat.eps}
 %figure caption is below the figure
 \caption{\small Shop-floor workload change history in Series A} 
 \label{fig:urgency-stat-SA} % Give a unique label
@@ -358,7 +358,7 @@ From Fig. \ref{fig:urgency-stat-SA} and Fig. \ref{fig:urgency-stat-SB} show the 
 %\hspace{0.5cm}
 %\begin{minipage}[t]{0.48\linewidth}
 \centering
-\includegraphics[width=0.7\textwidth, angle=0]{images/TaskUrgencyStat.eps}
+\includegraphics[width=0.7\textwidth, angle=0]{./TaskUrgencyStat.eps}
 \caption{\small Shop-floor workload change history in Series B} % measured in terms of task urgencies
 \label{fig:urgency-stat-SB} % Give a unique label
 %\end{minipage}
@@ -371,7 +371,7 @@ From Fig. \ref{fig:urgency-stat-SA} and Fig. \ref{fig:urgency-stat-SB} show the 
 %\begin{minipage}[t]{0.48\linewidth}
 \centering
 \includegraphics[width=0.7\textwidth, angle=0]
-{images/global-8robots/Plasticity-8robots2tasks.eps}
+{./Plasticity-8robots2tasks.eps}
 %figure caption is below the figure
 \caption{\small Self-organized allocation of robots in Series A}
 \label{fig:worker-stat-SA}
@@ -380,7 +380,7 @@ From Fig. \ref{fig:urgency-stat-SA} and Fig. \ref{fig:urgency-stat-SB} show the 
 %\hspace{0.5cm}
 %\begin{minipage}[t]{0.48\linewidth}
 \centering
-\includegraphics[width=0.7\textwidth, angle=0]{images/WorkerRatio.eps}
+\includegraphics[width=0.7\textwidth, angle=0]{./WorkerRatio.eps}
 \caption{\small Self-organized allocation of robots in Series B }
 \label{fig:worker-stat-SB} % Give a unique label
 %\end{minipage}
@@ -463,7 +463,7 @@ $ values for Series A: 0.40 (SD=0.08)  and for Series B: 0.30 (SD=0.03), and the
 %%--
 \begin{figure}
 \centering
-\includegraphics[width=0.7\textwidth, angle=0]{images/TaskSpecialization-task3-10may-1.eps}
+\includegraphics[width=0.7\textwidth, angle=0]{./TaskSpecialization-task3-10may-1.eps}
 \caption{Task specialization on Task3 for a Series B experiment.}
 \label{fig:k-single-task-SB} 
 \end{figure}
@@ -480,14 +480,14 @@ We have aggregated the changes in translation motion of all robots over time. Le
 \begin{figure*}
 %\begin{minipage}[t]{0.5\linewidth}
 \centering
-\includegraphics[width=0.7\textwidth]{images/global-8robots/8robots-DeltaTranslationStat.eps}
+\includegraphics[width=0.7\textwidth]{./8robots-DeltaTranslationStat.eps}
 \caption{\small Sum of the translations of robots in Series A experiments}
 \label{fig:translation-stat-SA} % Give a unique label
 %\end{minipage}
 %\hspace{0.5cm}
 %\begin{minipage}[t]{0.5\linewidth}
 \centering
-\includegraphics[width=0.7\textwidth]{images/global/DeltaTranslationStat.eps}
+\includegraphics[width=0.7\textwidth]{./DeltaTranslationStat.eps}
 \caption{\small Sum of the translations of robots in Series B experiments}
 \label{fig:translation-stat-SB} % Give a unique label
 %\end{minipage}
@@ -501,7 +501,7 @@ The results from Series A and Series B experiments are plotted in Fig. \ref{fig:
 %\begin{minipage}[t]{0.5\linewidth}
 \centering
 \includegraphics[width=0.7\textwidth]
-{images/global-8robots/8Robot-SignalingFreqStat.eps}
+{./8Robot-SignalingFreqStat.eps}
 \caption{\small Frequency of \texttt{TaskInfo} signalling in Series A experiments}
 \label{fig:signal-frequency-stat-SA} 
 %\end{minipage}
@@ -511,7 +511,7 @@ The results from Series A and Series B experiments are plotted in Fig. \ref{fig:
 %%
 \begin{figure}
 \centering
-\includegraphics[width=0.7\textwidth]{images/Global-SignalingFreqStat.eps}
+\includegraphics[width=0.7\textwidth]{./Global-SignalingFreqStat.eps}
 \caption{\small Frequency of \texttt{TaskInfo} signalling in Series B experiments}
 \label{fig:signal-frequency-stat-SB} 
 %\end{minipage}
@@ -586,17 +586,135 @@ Our validation of AFM has been limited to a group of homogeneous robots that has
 Finally, in terms of real-world implementation, we can consider to put AFM to solve many challenging industrial automation tasks. For example, AFM can be used to solve the automated material handing tasks in ware-houses and factories, or in real manufacturing tasks with suitable hardware modules. %In this way, our interdisciplinary model can help to overcome the existing challenges in the industry.
 %%
 %\bigskip
-\subsubsection*{Acknowledgements. } 
+%\subsubsection*{Acknowledgements. } 
+\begin{acknowledgements}
 This research has been funded by the Engineering and Physical Sciences Research Council (EPSRC), UK, grant reference EP/E061915/1.
-%\begin{acknowledgements}
-%If you'd like to thank anyone, place your comments here
-%and remove the percent signs.
-%\end{acknowledgements}
+\end{acknowledgements}
+%%
+\begin{thebibliography}{22}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{{#1}}
+\providecommand{\urlprefix}{URL }
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{DOI~\discretionary{}{}{}#1}\else
+  \providecommand{\doi}{DOI~\discretionary{}{}{}\begingroup
+  \urlstyle{rm}\Url}\fi
+\providecommand{\eprint}[2][]{\url{#2}}
+
+\bibitem[{Agassounon and Martinoli(2002)}]{Agassounon+2002}
+Agassounon W, Martinoli A (2002) {Efficiency and robustness of threshold-based
+  distributed allocation algorithms in multi-agent systems}. In: Proceedings of
+  the first international joint conference on Autonomous agents and multiagent
+  systems: part 3, p 1097
+
+\bibitem[{Arcaute et~al.(2008)Arcaute, Christensen, Sendova-Franks, Dahl,
+  Espinosa, and Jensen}]{Arcaute+2008}
+Arcaute E, Christensen K, Sendova-Franks A, Dahl T, Espinosa A, Jensen HJ
+  (2008) Division of labour in ant colonies in terms of attractive fields. Ecol
+  Complexity
+
+\bibitem[{Belta and Kumar(2004)}]{Belta+2004}
+Belta C, Kumar V (2004) {Abstraction and control for groups of robots}. IEEE
+  Transactions on Robotics 20(5):865--875
+
+\bibitem[{Bonabeau et~al.(1999)Bonabeau, Dorigo, and Theraulaz}]{Bonabeau+1999}
+Bonabeau E, Dorigo M, Theraulaz G (1999) Swarm intelligence: from natural to
+  artificial systems. Oxford University Press
+
+\bibitem[{Camazine et~al.(2001)Camazine, Franks, Sneyd, Bonabeau, Deneubourg,
+  and Theraula}]{Camazine+2001}
+Camazine S, Franks N, Sneyd J, Bonabeau E, Deneubourg J, Theraula G (2001)
+  Self-organization in biological systems. Princeton, N.J. : Princeton
+  University Press
+
+\bibitem[{Chaimowicz et~al.(2002)Chaimowicz, Campos, and
+  Kumar}]{Chaimowicz2002}
+Chaimowicz L, Campos MFM, Kumar V (2002) Dynamic role assignment for
+  cooperative robots. Robotics and Automation, Proceedings ICRA'02 IEEE
+  International Conference
+
+\bibitem[{Dias et~al.(2006)Dias, Zlot, Kalra, and Stentz}]{Dias+2006}
+Dias MB, Zlot RM, Kalra N, Stentz A (2006) Market-based multirobot
+  coordination: A survey and analysis. Proceedings of the IEEE 94:1257--1270
+
+\bibitem[{Gerkey and Mataric(2001)}]{Gerkey+2001}
+Gerkey B, Mataric M (2001) {Principled communication for dynamic multi-robot
+  task allocation}. Experimental Robotics VII pp 353--362
+
+\bibitem[{Gerkey and Mataric(2004)}]{Gerkey+2004}
+Gerkey BP, Mataric MJ (2004) A formal analysis and taxonomy of task allocation
+  in multi-robot systems. The International Journal of Robotics Research 23:939
+
+\bibitem[{Jones and Mataric(2003)}]{Jones+2000}
+Jones C, Mataric M (2003) {Adaptive division of labor in large-scale minimalist
+  multi-robot systems}. In: Proceedings of 2003 IEEE/RSJ International
+  Conference on Intelligent Robots and Systems, 2003 (IROS 2003)
+
+\bibitem[{Kalra and Martinoli(2007)}]{kalra+2007}
+Kalra N, Martinoli A (2007) A comparative study of market-based and
+  threshold-based task allocation. Distributed Autonomous Robotic Systems 7 pp
+  91--101
+
+\bibitem[{Krieger and Billeter(2000)}]{Krieger+2000}
+Krieger M, Billeter J (2000) The call of duty: Self-organised task allocation
+  in a population of up to twelve mobile robots. Robotics and Autonomous
+  Systems 30(1-2):65--84
+
+\bibitem[{Kube(1997)}]{Kube1997}
+Kube CR (1997) Task modelling in collective robotics. Autonomous Robots
+  4:53--72
+
+\bibitem[{Lazinica and Katalinic(2007)}]{Lazinica+2007}
+Lazinica A, Katalinic B (2007) Bionic assembly system: new concept of
+  self-organising multirobot system. International Journal of Automation and
+  Control 1(1):16--27
+
+\bibitem[{Lerman et~al.(2006)Lerman, Jones, Galstyan, and
+  Mataric}]{Lerman+2006}
+Lerman K, Jones C, Galstyan A, Mataric MJ (2006) Analysis of dynamic task
+  allocation in multi-robot systems. The International Journal of Robotics
+  Research 25:225
+
+\bibitem[{Liu et~al.(2007)Liu, Winfield, Sa, Chen, and Dou}]{Liu+2007}
+Liu W, Winfield AFT, Sa J, Chen J, Dou L (2007) Towards energy optimization:
+  Emergent task allocation in a swarm of foraging robots. Adaptive Behavior
+  15(3):289--305
+
+\bibitem[{Lochmatter et~al.(2008)Lochmatter, Roduit, Cianci, Correll, Jacot,
+  and Martinoli}]{Lochmatter+2008}
+Lochmatter T, Roduit P, Cianci C, Correll N, Jacot J, Martinoli A (2008)
+  Swistrack-a flexible open source tracking software for multi-agent systems.
+  In: Proc. of IEEE/RSJ International Conference on Intelligent Robots and
+  Systems, 2008. IROS 2008, pp 4004--4010
+
+\bibitem[{Parker(1998)}]{Parker1998}
+Parker LE (1998) Alliance: an architecture for fault tolerant multirobot
+  cooperation. Robotics and Automation, IEEE Transactions on 14:220--240
+
+\bibitem[{Parker(2008)}]{Parker2008}
+Parker LE (2008) Distributed intelligence: Overview of the field and its
+  application in multi-robot systems. Journal of Physical Agents, special issue
+  on multi-robot systems 2(2):5--14
+
+\bibitem[{Pennington et~al.(2010)Pennington, Carlsson, and
+  Larsson}]{Pennington+2010}
+Pennington H, Carlsson A, Larsson A (2010) D-bus specification.
+  \urlprefix\url{http://dbus.freedesktop.org/doc/dbus-specification.html}
+
+\bibitem[{Sarker and Dahl(2010)}]{Sarker2010control}
+Sarker M, Dahl T (2010) {Flexible Communication in Multi-robotic Control System
+  Using HEAD: Hybrid Event-driven Architecture on D-Bus}. In: Proc. of the
+  UKACC International Conference on Control 2010 (CONTROL 2010), Coventry, UK,
+  pp 926--931
+
+\bibitem[{Ueda(2007)}]{Ueda2006}
+Ueda K (2007) Emergent synthesis approaches to biological manufacturing systems. Digital Enterprise Technology pp 25--34
+
+\end{thebibliography}
 % BibTeX users please use one of
-\bibliographystyle{spbasic} 
+%\bibliographystyle{spbasic} 
 %\bibliographystyle{spmpsci}
 %\bibliographystyle{splncs}
 %\bibliographystyle{agsm}            
-\bibliography{si-journal} % name your BibTeX data base
-%
+%\bibliography{Sarker_Dahl_ANTS2010_Special_issue} % name your BibTeX data base
 \end{document}
